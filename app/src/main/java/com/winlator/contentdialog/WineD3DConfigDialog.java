@@ -40,7 +40,7 @@ public class WineD3DConfigDialog extends ContentDialog {
         AppUtils.setSpinnerSelectionFromIdentifier(sRenderer, config.get("renderer", "gl"));
 
         final CheckBox cbCSMT = findViewById(R.id.CBCSMT);
-        cbCSMT.setChecked(config.getInt("csmt", 3) != 0);
+        cbCSMT.setChecked(config.getInt("csmt", 1) != 0);
 
         GPUCardAdapter adapter = new GPUCardAdapter(context, android.R.layout.simple_spinner_dropdown_item);
         Spinner sGPUName = findViewById(R.id.SGPUName);
@@ -53,7 +53,7 @@ public class WineD3DConfigDialog extends ContentDialog {
         AppUtils.setSpinnerSelectionFromValue(sOffscreenRenderingMode, config.get("OffscreenRenderingMode", "fbo"));
 
         final CheckBox cbStrictShaderMath = findViewById(R.id.CBStrictShaderMath);
-        cbStrictShaderMath.setChecked(config.getInt("strict_shader_math", 1) != 0);
+        cbStrictShaderMath.setChecked(config.getInt("strict_shader_math", 0) != 0);
 
         final Spinner sVideoMemorySize = findViewById(R.id.SVideoMemorySize);
         final String videoMemorySize = config.get("VideoMemorySize", "2048");
@@ -62,7 +62,7 @@ public class WineD3DConfigDialog extends ContentDialog {
         setOnConfirmCallback(() -> {
             KeyValueSet newConfig = new KeyValueSet();
             newConfig.put("version", sVersion.getSelectedItem().toString());
-            newConfig.put("csmt", cbCSMT.isChecked() ? "3" : "0");
+            newConfig.put("csmt", cbCSMT.isChecked() ? "1" : "0");
 
             String ddrawWrapper = StringUtils.parseIdentifier(sDDrawWrapper.getSelectedItem());
             if (!ddrawWrapper.equals(DXWrappers.WINED3D)) newConfig.put("ddrawWrapper", ddrawWrapper);
@@ -84,11 +84,11 @@ public class WineD3DConfigDialog extends ContentDialog {
     public static void setEnvVars(KeyValueSet config, EnvVars envVars) {
         envVars.put("WINE_D3D_CONFIG", String.join(",",
             "renderer="+config.get("renderer", "gl"),
-            "csmt="+config.getHexString("csmt", 3),
+            "csmt="+config.getHexString("csmt", 1),
             "VideoPciDeviceID="+config.getHexString("VideoPciDeviceID", 1728),
             "VideoPciVendorID="+config.getHexString("VideoPciVendorID", 4318),
             "OffscreenRenderingMode="+config.get("OffscreenRenderingMode", "fbo"),
-            "strict_shader_math="+config.getHexString("strict_shader_math", 1),
+            "strict_shader_math="+config.getHexString("strict_shader_math", 0),
             "VideoMemorySize="+config.get("VideoMemorySize", "2048")
         ));
     }
