@@ -1,0 +1,42 @@
+name: Winlator APK
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ github.token }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'cmake;3.22.1'
+
+      - name: Fix ALL duplicate native libs
+        run: |
+          find . -name "build.gradle" -exec sed -i '/android {/a \    packagingOptions { jniLibs { pickFirsts += ["lib/arm64-v8a/*.so"] } }' {} +
+          echo "Fixed all .so duplicate issues"
+
+      - name: Build APK
+        run: |
+          GRADLEW_PATH=$(find . -name gradlew | head -n 1)
+          PROJECT_ROOT=$(dirname "$GRADLEW_PATH")
+          cd "$PROJECT_ROOT"
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Winlator-debug
+          path: app/build/outputs/apk/debug/*.apk
