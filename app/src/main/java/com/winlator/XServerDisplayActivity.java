@@ -490,6 +490,14 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         envVars.put("WINEPREFIX", rootPath+RootFS.WINEPREFIX);
         envVars.put("WINE_DO_NOT_CREATE_DXGI_DEVICE_MANAGER", "1");
 
+        if (audioDriverConfig == null) audioDriverConfig = new KeyValueSet();
+        if (graphicsDriver == null || graphicsDriver.length < 2) {
+            graphicsDriver = new String[]{GraphicsDrivers.DEFAULT_VULKAN_DRIVER, GraphicsDrivers.DEFAULT_OPENGL_DRIVER};
+        }
+        if (graphicsDriverConfig == null || graphicsDriverConfig.length < 2) {
+            graphicsDriverConfig = GraphicsDrivers.parseConfigs(graphicsDriver[0]+","+graphicsDriver[1], null);
+        }
+
         boolean enableWineDebug = preferences.getBoolean("enable_wine_debug", false);
         String wineDebugChannels = preferences.getString("wine_debug_channels", SettingsFragment.DEFAULT_WINE_DEBUG_CHANNELS);
         envVars.put("WINEDEBUG", enableWineDebug && !wineDebugChannels.isEmpty() ? "+"+wineDebugChannels.replace(",", ",+") : "-all");
