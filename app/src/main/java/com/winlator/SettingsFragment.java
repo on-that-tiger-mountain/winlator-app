@@ -182,9 +182,7 @@ public class SettingsFragment extends Fragment {
 
         loadGamepadPlayerConfigs(view);
 
-        if (MainActivity.DEBUG_MODE) {
-            view.findViewById(R.id.LLWineInstallation).setVisibility(View.VISIBLE);
-        }
+        view.findViewById(R.id.LLWineInstallation).setVisibility(View.VISIBLE);
 
         view.findViewById(R.id.BTConfirm).setOnClickListener((v) -> {
             SharedPreferences.Editor editor = preferences.edit();
