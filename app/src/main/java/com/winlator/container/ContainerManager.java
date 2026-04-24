@@ -115,6 +115,7 @@ public class ContainerManager {
                 return null;
             }
 
+            container.putExtra("wineprefixWineVersion", container.getWineVersion());
             container.saveData();
             maxContainerId++;
             containers.add(container);

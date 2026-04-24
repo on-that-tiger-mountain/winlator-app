@@ -168,6 +168,20 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             container = containerManager.getContainerById(getIntent().getIntExtra("container_id", 0));
             containerManager.activateContainer(container);
 
+            String wineVersion = container.getWineVersion();
+            wineInfo = WineInfo.fromIdentifier(this, wineVersion);
+            if (wineInfo != WineInfo.MAIN_WINE_INFO) rootFS.setWinePath(wineInfo.path);
+
+            String wineprefixWineVersion = container.getExtra("wineprefixWineVersion");
+
+            if (wineprefixWineVersion.isEmpty()) {
+                container.putExtra("wineprefixWineVersion", wineVersion);
+                container.saveData();
+            } else if (!wineprefixWineVersion.equals(wineVersion)) {
+                container.putExtra("wineprefixNeedsUpdate", "t");
+                container.saveData();
+            }
+
             boolean wineprefixNeedsUpdate = container.getExtra("wineprefixNeedsUpdate").equals("t");
             if (wineprefixNeedsUpdate) {
                 preloaderDialog.show(R.string.updating_system_files);
@@ -175,6 +189,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
                     if (status == 0) {
                         container.putExtra("wineprefixNeedsUpdate", null);
                         container.putExtra("wincomponents", null);
+                        container.putExtra("wineprefixWineVersion", wineVersion);
                         container.saveData();
                         AppUtils.restartActivity(this);
                     }
@@ -184,11 +199,6 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             }
 
             win32AppWorkarounds = new Win32AppWorkarounds(this);
-
-            String wineVersion = container.getWineVersion();
-            wineInfo = WineInfo.fromIdentifier(this, wineVersion);
-
-            if (wineInfo != WineInfo.MAIN_WINE_INFO) rootFS.setWinePath(wineInfo.path);
 
             String shortcutPath = getIntent().getStringExtra("shortcut_path");
             if (shortcutPath != null && !shortcutPath.isEmpty()) shortcut = new Shortcut(container, new File(shortcutPath));
@@ -443,6 +453,12 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             applyGeneralPatches(container);
             container.putExtra("appVersion", appVersion);
             container.putExtra("rfsVersion", rfsVersion);
+            containerDataChanged = true;
+        }
+
+        String wineVersion = container.getWineVersion();
+        if (!wineVersion.equals(container.getExtra("wineprefixWineVersion"))) {
+            container.putExtra("wineprefixWineVersion", wineVersion);
             containerDataChanged = true;
         }
 
