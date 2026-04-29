@@ -395,7 +395,7 @@ public class InputControlsView extends View {
 
                         handled = false;
                         for (ControlElement element : profile.getElements()) {
-                            if (element.handleTouchMove(i, x, y)) handled = true;
+                            if (element.handleTouchMove(event.getPointerId(i), x, y)) handled = true;
                         }
                         if (!handled) touchpadView.onTouchEvent(event);
                     }
