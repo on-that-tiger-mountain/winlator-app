@@ -727,6 +727,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
         if (changed) {
             FileUtils.delete(new File(libDir, "libvulkan_freedreno.so"));
+            FileUtils.delete(new File(libDir, "libvulkan_lvp.so"));
             FileUtils.delete(new File(libDir, "libvulkan_vortek.so"));
             FileUtils.delete(new File(libDir, "libGL.so.1.7.0"));
 
@@ -752,6 +753,11 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         }
 
         switch (graphicsDriver[1]) {
+            case GraphicsDrivers.LLVMPIPE:
+                envVars.put("GALLIUM_DRIVER", "llvmpipe");
+
+                if (changed) TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, this, "graphics_driver/llvmpipe-"+DefaultVersion.LLVMPIPE+".tzst", rootDir);
+                break;
             case GraphicsDrivers.ZINK:
                 envVars.put("GALLIUM_DRIVER", "zink");
                 envVars.put("ZINK_CONTEXT_THREADED", "1");
