@@ -28,7 +28,7 @@ public abstract class DefaultVersion {
     public static String DXVK(String vulkanDriver) {
         int vkApiVersion = 0;
         if (vulkanDriver != null && vulkanDriver.equals(GraphicsDrivers.VORTEK)) vkApiVersion = GPUHelper.vkGetApiVersion();
-        return vulkanDriver == null || vulkanDriver.equals(GraphicsDrivers.TURNIP) || vkApiVersion >= GPUHelper.vkMakeVersion(1, 3, 0) ? MAJOR_DXVK : MINOR_DXVK;
+        return vulkanDriver == null || vulkanDriver.equals(GraphicsDrivers.TURNIP) || vkApiVersion >= GPUHelper.vkMakeVersion(1, 3, 0) || vulkanDriver.equals(GraphicsDrivers.LAVAPIPE) ? MAJOR_DXVK : MINOR_DXVK;
     }
 
     public static String valueOf(String name) {
