@@ -20,6 +20,7 @@ public abstract class DefaultVersion {
     public static final String SOUNDFONT = "SONiVOX-EAS-GM-Wavetable";
     public static final String MINOR_DXVK = "1.10.3";
     public static final String MAJOR_DXVK = "2.4.1";
+    public static final String DXVK_Sarek_pal4 = "1.11.1";
 
     public static String DXVK() {
         return DXVK(null);
@@ -46,6 +47,7 @@ public abstract class DefaultVersion {
             case "WINED3D": return WINED3D;
             case "CNC_DDRAW": return CNC_DDRAW;
             case "SOUNDFONT": return SOUNDFONT;
+            case "DXVK_Sarek_pal4": return DXVK_Sarek_pal4;
             default: return "0.0";
         }
     }

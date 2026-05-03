@@ -128,7 +128,7 @@ public abstract class GeneralComponents {
                 items = new String[]{DefaultVersion.TURNIP};
                 break;
             case DXVK:
-                items = new String[]{DefaultVersion.MINOR_DXVK, DefaultVersion.MAJOR_DXVK};
+                items = new String[]{DefaultVersion.MINOR_DXVK, DefaultVersion.DXVK_Sarek_pal4, DefaultVersion.MAJOR_DXVK};
                 break;
             case VKD3D:
                 items = new String[]{DefaultVersion.VKD3D};
