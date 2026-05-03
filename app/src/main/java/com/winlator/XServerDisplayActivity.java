@@ -739,17 +739,22 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             container.saveData();
         }
 
-        if (graphicsDriver[0].equals(GraphicsDrivers.TURNIP)) {
-            envVars.put("MESA_VK_WSI_PRESENT_MODE", "mailbox");
-            TurnipConfigDialog.setEnvVars(this, graphicsDriverConfig[0], envVars);
+        switch (graphicsDriver[0]) {
+            case GraphicsDrivers.TURNIP:
+                envVars.put("MESA_VK_WSI_PRESENT_MODE", "mailbox");
+                TurnipConfigDialog.setEnvVars(this, graphicsDriverConfig[0], envVars);
 
-            if (changed) {
-                String version = graphicsDriverConfig[0].get("version", DefaultVersion.TURNIP);
-                GeneralComponents.extractFile(GeneralComponents.Type.TURNIP, this, version, DefaultVersion.TURNIP);
-            }
-        }
-        else if (graphicsDriver[0].equals(GraphicsDrivers.VORTEK) && (changed || MainActivity.DEBUG_MODE)) {
-            TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, this, "graphics_driver/vortek-" + DefaultVersion.VORTEK + ".tzst", rootDir);
+                if (changed) {
+                    String version = graphicsDriverConfig[0].get("version", DefaultVersion.TURNIP);
+                    GeneralComponents.extractFile(GeneralComponents.Type.TURNIP, this, version, DefaultVersion.TURNIP);
+                }
+                break;
+            case GraphicsDrivers.VORTEK:
+                if (changed || MainActivity.DEBUG_MODE) TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, this, "graphics_driver/vortek-" + DefaultVersion.VORTEK + ".tzst", rootDir);
+                break;
+            case GraphicsDrivers.LAVAPIPE:
+                if (changed || MainActivity.DEBUG_MODE) TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, this, "graphics_driver/lavapipe-" + DefaultVersion.LAVAPIPE + ".tzst", rootDir);
+                break;
         }
 
         switch (graphicsDriver[1]) {
