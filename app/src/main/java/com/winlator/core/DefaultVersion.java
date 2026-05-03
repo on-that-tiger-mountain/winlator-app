@@ -8,6 +8,7 @@ public abstract class DefaultVersion {
     public static final String BOX64 = "0.4.0";
     public static final String TURNIP = "26.1.0";
     public static final String VORTEK = "2.1";
+    public static final String LAVAPIPE = "25.0.0";
     public static final String LLVMPIPE = "25.0.0";
     public static final String ZINK = "22.2.5";
     public static final String VIRGL = "23.1.9";
@@ -35,6 +36,7 @@ public abstract class DefaultVersion {
             case "BOX64": return BOX64;
             case "TURNIP": return TURNIP;
             case "VORTEK": return VORTEK;
+            case "LAVAPIPE": return LAVAPIPE;
             case "LLVMPIPE": return LLVMPIPE;
             case "ZINK": return ZINK;
             case "VIRGL": return VIRGL;
