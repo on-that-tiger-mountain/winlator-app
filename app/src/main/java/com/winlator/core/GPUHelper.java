@@ -120,6 +120,14 @@ public abstract class GPUHelper {
         return glGetRenderer(context).toLowerCase(Locale.ENGLISH).matches(".*adreno[^6]+6[0-9]{2}.*");
     }
 
+    public static boolean isAdreno740(Context context) {
+        return glGetRenderer(context).toLowerCase(Locale.ENGLISH).matches(".*adreno[^7]+740.*");
+    }
+
+    public static boolean isAdreno619(Context context) {
+        return glGetRenderer(context).toLowerCase(Locale.ENGLISH).matches(".*adreno[^6]+619.*");
+    }
+
     public static boolean isAdreno(Context context) {
         return glGetRenderer(context).toLowerCase(Locale.ENGLISH).contains("adreno");
     }
