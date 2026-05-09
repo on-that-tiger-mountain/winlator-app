@@ -384,6 +384,14 @@
                     <View style="@style/FieldSeparator" />
 
                     <CheckBox
+                        android:id="@+id/CBUseComposite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/use_composite_extension" />
+
+                    <View style="@style/FieldSeparator" />
+
+                    <CheckBox
                         android:id="@+id/CBEnableWineDebug"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

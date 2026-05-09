@@ -141,6 +141,7 @@
     <string name="box64_version">Box64 Version</string>
     <string name="letter">Letter</string>
     <string name="target_path">Target Path</string>
+    <string name="use_composite_extension" translatable="false">Use Composite extension</string>
     <string name="width">Width</string>
     <string name="height">Height</string>
     <string name="old">old</string>

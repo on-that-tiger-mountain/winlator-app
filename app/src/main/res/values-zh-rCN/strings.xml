@@ -141,6 +141,7 @@
     <string name="box64_version">Box64版本</string>
     <string name="letter">盘符</string>
     <string name="target_path">目标路径</string>
+    <string name="use_composite_extension" translatable="false">使用 Composite 拓展</string>
     <string name="width">宽度</string>
     <string name="height">高度</string>
     <string name="old">旧的</string>

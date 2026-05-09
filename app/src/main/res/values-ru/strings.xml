@@ -124,6 +124,7 @@
     <string name="box64_version">Версия Box64</string>
     <string name="letter">Буква</string>
     <string name="target_path">Путь к диску</string>
+    <string name="use_composite_extension">Использовать расширение Composite</string>
     <string name="width">Ширина</string>
     <string name="height">Высота</string>
     <string name="old">старый</string>

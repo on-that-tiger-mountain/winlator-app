@@ -184,15 +184,26 @@ public class XServer {
 
     private Extension[] setupExtensions() {
         byte opcode = Extension.START_MAJOR_OPCODE;
-        return new Extension[]{
-            new BigReqExtension(this, opcode--),
-            new MITSHMExtension(this, opcode--),
-            new DRI3Extension(this, opcode--),
-            new PresentExtension(this, opcode--),
-            new SyncExtension(this, opcode--),
-            new XComposite(this, opcode--),
-            new GLXExtension(this, opcode--)
-        };
+        if (screenInfo.enableCompositeExtension) {
+            return new Extension[]{
+                new BigReqExtension(this, opcode--),
+                new MITSHMExtension(this, opcode--),
+                new DRI3Extension(this, opcode--),
+                new PresentExtension(this, opcode--),
+                new SyncExtension(this, opcode--),
+                new XComposite(this, opcode--),
+                new GLXExtension(this, opcode--)
+            };
+        }
+        else {
+            return new Extension[]{
+                new BigReqExtension(this, opcode--),
+                new MITSHMExtension(this, opcode--),
+                new DRI3Extension(this, opcode--),
+                new PresentExtension(this, opcode--),
+                new SyncExtension(this, opcode--)
+            };
+        }
     }
 
     public <T extends Extension> T getExtension(byte opcode) {

@@ -248,6 +248,9 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         preloaderDialog.show(R.string.starting_up);
 
         inputControlsManager = new InputControlsManager(this);
+
+        screenInfo.enableCompositeExtension = preferences.getBoolean("use_composite", false);
+
         xServer = new XServer(this, screenInfo);
         xServer.setWinHandler(winHandler);
         final boolean[] flags = {false, shortcut != null || getIntent().hasExtra("exec_path")};

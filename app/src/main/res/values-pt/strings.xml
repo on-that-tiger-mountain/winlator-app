@@ -124,6 +124,7 @@
     <string name="box64_version">Versão Box64</string>
     <string name="letter">Letra</string>
     <string name="target_path">Caminho Principal</string>
+    <string name="use_composite_extension" translatable="false">Use Composite extension</string>
     <string name="width">Largura</string>
     <string name="height">Altura</string>
     <string name="old">Antigo</string>
